@@ -1,0 +1,3 @@
+br/campos/sockets/AppServer.class
+br/campos/sockets/ServerHandler.class
+br/campos/sockets/util/HibernateUtil.class

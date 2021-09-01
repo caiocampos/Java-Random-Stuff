@@ -1,0 +1,776 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/*
+ * MenuVenda.java
+ *
+ * Created on 25/06/2011, 10:16:39
+ */
+
+package Visual;
+
+import Modelo.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import javax.swing.table.DefaultTableModel;
+
+/**
+ *
+ * @author Caio
+ */
+public class MenuVenda extends javax.swing.JFrame {
+
+    private Venda v;
+    private Encomenda e;
+    private Double valTotal;
+    private ArrayList<Produto> aux = new ArrayList<Produto>();
+    private Produto sel;
+    
+    private void copiaLP(Venda venda){
+        Produto cp;
+        for(Produto p : venda.getLP()){
+            cp = new Produto();
+            cp.setNome(p.getNome());
+            cp.setPreco(p.getPreco());
+            cp.setTipo(p.getTipo());
+            cp.setQuantidade(p.getQuantidade());
+            aux.add(cp);
+        }
+        cp = null;
+    }
+
+    private Produto findProduto(String s){
+        for(Produto obj : aux){
+            if(obj.getNome().equals(s)) return obj;
+        }
+        return null;
+    }
+
+    private void removeProduto(String s){
+        int i = 0;
+        for(Produto obj : aux){
+            if(obj.getNome().equals(s)){
+                aux.remove(i);
+                plUpdate();
+                return;
+            }
+            i++;
+        }
+    }
+
+    private void calcPreco(){
+        valTotal = 0.0;
+        for(Produto p : aux){
+            valTotal += p.getQuantidade() * p.getPreco();
+        }
+    }
+
+    private void elUpdate(){
+        DefaultTableModel modelo = (DefaultTableModel)listE.getModel();
+        boolean teste;
+        String a, t;
+        int j = 0;
+        a = findTE.getText();
+	modelo.setRowCount(0);
+        for(Produto obj : POOView.getEstoque()){
+            t = obj.getNome();
+            teste = false;
+            for(int i = 0; i < a.length(); i++){
+                if(a.charAt(i) != t.charAt(i) || a.length() > t.length()){
+                    teste = true;
+                    break;
+                }
+            }
+            if(!teste){
+                modelo.addRow(new Object[modelo.getColumnCount()]);
+                listE.setValueAt(t,j,0);
+                listE.setValueAt(obj.getQuantidade(),j,1);
+            }
+            j++;
+        }
+    }
+
+    private void plUpdate(){
+        DefaultTableModel modelo = (DefaultTableModel)listP.getModel();
+        boolean teste;
+        String a, t;
+        int j;
+        a = findTP.getText();
+
+        for(j = modelo.getRowCount() - 1; j >= 0; j--) modelo.removeRow(j);
+
+        j = 0;
+        for(Produto obj : aux){
+            t = obj.getNome();
+            teste = false;
+            for(int i = 0; i < a.length(); i++){
+                if(a.charAt(i) != t.charAt(i) || a.length() > t.length()){
+                    teste = true;
+                    break;
+                }
+            }
+            if(!teste){
+                modelo.addRow(new Object[modelo.getColumnCount()]);
+                listP.setValueAt(t,j,0);
+                listP.setValueAt(obj.getQuantidade(),j,1);
+            }
+            j++;
+        }
+    }
+
+    /** Creates new form MenuVenda */
+    public MenuVenda() {
+        initComponents();
+        v = new Venda();
+    }
+
+    MenuVenda(Venda venda) {
+        copiaLP(venda);
+        v = venda;
+        calcPreco();
+        
+        initComponents();
+        cod.setText(venda.getCode());
+
+        
+        elUpdate();
+        plUpdate();
+
+        setVisible(true);
+    }
+
+    MenuVenda(Encomenda venda) {
+        copiaLP(venda);
+        e = venda;
+        calcPreco();
+        
+        initComponents();
+        cod.setText(venda.getCode());
+
+
+        isEnc.setState(true);
+        isEnc.setEnabled(false);
+        dataEnt.setEnabled(true);
+        dataEnt.setValue(venda.getDataE().getTime());
+
+        elUpdate();
+        plUpdate();
+
+        setVisible(true);
+    }
+    
+    public String getDataC(){
+        if(v != null){
+            String s;
+            Integer val;
+            val = v.getData().get(GregorianCalendar.DAY_OF_MONTH);
+            s = val.toString() + '/';
+            val = v.getData().get(GregorianCalendar.MONTH) + 1;
+            s += val.toString() + '/';
+            val = v.getData().get(GregorianCalendar.YEAR);
+            s += val.toString();
+            return s;
+        }
+        if(e != null){
+            String s;
+            Integer val;
+            val = e.getData().get(GregorianCalendar.DAY_OF_MONTH);
+            s = val.toString() + '/';
+            val = e.getData().get(GregorianCalendar.MONTH) + 1;
+            s += val.toString() + '/';
+            val = e.getData().get(GregorianCalendar.YEAR);
+            s += val.toString();
+            return s;
+        }
+        return null;
+    }
+
+    /** This method is called from within the constructor to
+     * initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is
+     * always regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        precoV = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listP = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        listE = new javax.swing.JTable();
+        findTE = new java.awt.TextField();
+        findTP = new java.awt.TextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        dataEnt = new javax.swing.JSpinner();
+        cadV = new javax.swing.JButton();
+        cod = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        remV = new javax.swing.JButton();
+        qtdP = new javax.swing.JSpinner();
+        isEnc = new java.awt.Checkbox();
+        isPago = new java.awt.Checkbox();
+        jButton2 = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setName("Form"); // NOI18N
+
+        precoV.setEditable(false);
+        precoV.setText(valTotal.toString());
+        precoV.setName("precoV"); // NOI18N
+
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(Modelo.POOApp.class).getContext().getResourceMap(MenuVenda.class);
+        jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
+        jLabel1.setName("jLabel1"); // NOI18N
+
+        jLabel2.setText(resourceMap.getString("jLabel2.text")); // NOI18N
+        jLabel2.setName("jLabel2"); // NOI18N
+
+        jScrollPane1.setName("jScrollPane1"); // NOI18N
+
+        listP.setAutoCreateRowSorter(true);
+        listP.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nome", "Qtd"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        listP.setName("listP"); // NOI18N
+        listP.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listPMouseClicked(evt);
+            }
+        });
+        listP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                listPKeyPressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(listP);
+
+        jScrollPane2.setName("jScrollPane2"); // NOI18N
+
+        listE.setAutoCreateRowSorter(true);
+        listE.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nome", "Qtd"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        listE.setName("listE"); // NOI18N
+        listE.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listEMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(listE);
+
+        findTE.setName("findTE"); // NOI18N
+        findTE.setText(resourceMap.getString("findTE.text")); // NOI18N
+        findTE.addTextListener(new java.awt.event.TextListener() {
+            public void textValueChanged(java.awt.event.TextEvent evt) {
+                findTETextValueChanged(evt);
+            }
+        });
+
+        findTP.setName("findTP"); // NOI18N
+        findTP.setText(resourceMap.getString("findTP.text")); // NOI18N
+        findTP.addTextListener(new java.awt.event.TextListener() {
+            public void textValueChanged(java.awt.event.TextEvent evt) {
+                findTPTextValueChanged(evt);
+            }
+        });
+
+        jLabel3.setText(resourceMap.getString("jLabel3.text")); // NOI18N
+        jLabel3.setName("jLabel3"); // NOI18N
+
+        jLabel4.setText(resourceMap.getString("jLabel4.text")); // NOI18N
+        jLabel4.setName("jLabel4"); // NOI18N
+
+        jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
+        jButton1.setName("jButton1"); // NOI18N
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+
+        dataEnt.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(946692000000L), null, null, java.util.Calendar.HOUR));
+        dataEnt.setEnabled(false);
+        dataEnt.setName("DataDeEntrega"); // NOI18N
+
+        cadV.setText(resourceMap.getString("cadV.text")); // NOI18N
+        cadV.setName("cadV"); // NOI18N
+        cadV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cadVMouseClicked(evt);
+            }
+        });
+
+        cod.setEditable(false);
+        cod.setText(resourceMap.getString("cod.text")); // NOI18N
+        cod.setName("cod"); // NOI18N
+
+        jLabel5.setText(resourceMap.getString("jLabel5.text")); // NOI18N
+        jLabel5.setName("jLabel5"); // NOI18N
+
+        jLabel6.setText(resourceMap.getString("jLabel6.text")); // NOI18N
+        jLabel6.setName("jLabel6"); // NOI18N
+
+        jLabel7.setText(resourceMap.getString("jLabel7.text")); // NOI18N
+        jLabel7.setName("jLabel7"); // NOI18N
+
+        jTextField2.setEditable(false);
+        jTextField2.setText(getDataC());
+        jTextField2.setName("jTextField2"); // NOI18N
+
+        remV.setText(resourceMap.getString("remV.text")); // NOI18N
+        remV.setName("remV"); // NOI18N
+        remV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                remVMouseClicked(evt);
+            }
+        });
+
+        qtdP.setModel(new javax.swing.SpinnerNumberModel());
+        qtdP.setName("qtdP"); // NOI18N
+        qtdP.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                qtdPStateChanged(evt);
+            }
+        });
+
+        isEnc.setLabel(resourceMap.getString("isEnc.label")); // NOI18N
+        isEnc.setName("isEnc"); // NOI18N
+        isEnc.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                isEncItemStateChanged(evt);
+            }
+        });
+
+        isPago.setLabel(resourceMap.getString("isPago.label")); // NOI18N
+        isPago.setName("isPago"); // NOI18N
+
+        jButton2.setText(resourceMap.getString("jButton2.text")); // NOI18N
+        jButton2.setName("jButton2"); // NOI18N
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(findTP, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
+                            .addComponent(jLabel3)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cod, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+                            .addComponent(findTE, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(cadV)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(remV)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(qtdP, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(32, 32, 32)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(precoV, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(39, 39, 39)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dataEnt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(52, 52, 52)
+                                .addComponent(jButton2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(isEnc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(isPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(findTP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(findTE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(qtdP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(cod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(precoV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(isEnc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(isPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(dataEnt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(remV)
+                            .addComponent(cadV)
+                            .addComponent(jButton1))))
+                .addContainerGap())
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void findTPTextValueChanged(java.awt.event.TextEvent evt) {//GEN-FIRST:event_findTPTextValueChanged
+        plUpdate();
+    }//GEN-LAST:event_findTPTextValueChanged
+
+    private void findTETextValueChanged(java.awt.event.TextEvent evt) {//GEN-FIRST:event_findTETextValueChanged
+        elUpdate();
+    }//GEN-LAST:event_findTETextValueChanged
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        dispose();
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void remVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_remVMouseClicked
+        if(v != null){
+            Cliente c = POOView.findCliente(v.getCN());
+            if(c != null){
+                if(c.findVenda(v.getCode()) != null) c.removeVenda(v.getCode());
+            }
+            POOView.delEncomenda(POOView.findEncomenda(v.getCode()));
+            POOView.gravarCliente();
+            POOView.gravarEncomenda();
+            POOView.elUpdate();
+            dispose();
+            return;
+        }
+        if(e != null){
+            Cliente c = POOView.findCliente(e.getCN());
+            if(c != null){
+                if(c.findVenda(e.getCode()) != null) c.removeVenda(e.getCode());
+            }
+            POOView.delEncomenda(e);
+            POOView.gravarCliente();
+            POOView.gravarEncomenda();
+            POOView.elUpdate();
+            dispose();
+            return;
+        }
+    }//GEN-LAST:event_remVMouseClicked
+
+    private void cadVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cadVMouseClicked
+        for(Produto p : aux){
+            if(p.getQuantidade() <= 0){
+                showErro("Alguns campos de produto estão negativos ou zerados");
+                dispose();
+                return;
+            }
+        }
+
+        if(v != null){
+            for(Produto p : v.getLP()){
+                if(findProduto(p.getNome()) == null){
+                    POOView.findProduto(p.getNome()).addProduto(p.getQuantidade());
+                }
+            }
+            int val = 0;
+            for(Produto p : aux){
+                Produto pa = v.findProduto(p.getNome());
+                if(pa == null) val = 0;
+                if(pa != null) val = pa.getQuantidade();
+
+                POOView.findProduto(p.getNome()).removeProduto(p.getQuantidade()- val);
+            }
+
+            if(isEnc.getState()){
+                Encomenda ea = new Encomenda();
+                ea.setCN(v.getCN());
+                ea.setCode(v.getCode());
+                ea.setData(v.getData());
+                ea.setLP(aux);
+                ea.setPago(isPago.getState());
+                GregorianCalendar d = new GregorianCalendar();
+                d.setTime((Date)dataEnt.getValue());
+                ea.setDataE(d);
+                POOView.addEncomenda(ea);
+            }
+            if(isPago.getState()){
+                Cliente c = POOView.findCliente(v.getCN());
+                if(c != null){
+                    if(c.findVenda(v.getCode()) != null) c.removeVenda(v.getCode());
+                }
+                POOView.gravarCliente();
+                POOView.gravarEncomenda();
+                dispose();
+                POOView.elUpdate();
+                return;
+            }
+            v.setLP(aux);
+            v.calcPreco();
+            POOView.gravarCliente();
+            POOView.gravarEncomenda();
+            dispose();
+            POOView.elUpdate();
+            return;
+        }
+        if(e != null){
+            
+            e.setLP(aux);
+            e.setPago(isPago.getState());
+            GregorianCalendar d = new GregorianCalendar();
+            d.setTime((Date)dataEnt.getValue());
+            e.setDataE(d);
+            e.calcPreco();
+            
+            for(Produto p : e.getLP()){
+                if(findProduto(p.getNome()) == null){
+                    POOView.findProduto(p.getNome()).addProduto(p.getQuantidade());
+                }
+            }
+            int val = 0;
+            for(Produto p : aux){
+                Produto pa = e.findProduto(p.getNome());
+                if(pa == null) val = 0;
+                if(pa != null) val = pa.getQuantidade();
+                
+                POOView.findProduto(p.getNome()).removeProduto(p.getQuantidade()- val);
+            }
+
+            if(!isPago.getState()){
+                Cliente c = POOView.findCliente(e.getCN());
+                if(c != null){
+                    Venda va = c.findVenda(e.getCN());
+                    if(va == null){
+                        va = new Venda();
+
+                        va.setCode(e.getCN());
+                        va.setData(e.getData());
+
+                        c.addVenda(va);
+                    }
+                    va.setLP(aux);
+                    va.calcPreco();
+                }
+            }
+            
+            if(isPago.getState()){
+                Cliente c = POOView.findCliente(e.getCN());
+                if(c != null){
+                    if(c.findVenda(e.getCode()) != null) c.removeVenda(e.getCode());
+                }
+            }
+
+            POOView.gravarCliente();
+            POOView.gravarEncomenda();
+            dispose();
+            POOView.elUpdate();
+        }
+    }//GEN-LAST:event_cadVMouseClicked
+
+    private void isEncItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_isEncItemStateChanged
+        dataEnt.setEnabled(isEnc.getState());
+    }//GEN-LAST:event_isEncItemStateChanged
+
+    private void listEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listEMouseClicked
+        String s = (String)listE.getValueAt(listE.getSelectedRow(), 0);
+        if(evt.getClickCount() == 2 && s != null){
+            Produto a = POOView.findProduto(s);
+            if(findProduto(a.getNome()) != null) return;
+            Produto b = new Produto();
+
+            b.setNome(a.getNome());
+            b.setPreco(a.getPreco());
+            b.setTipo(false);
+            b.setQuantidade(0);
+
+            aux.add(b);
+            plUpdate();
+        }
+    }//GEN-LAST:event_listEMouseClicked
+
+    private void listPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listPMouseClicked
+        String s = (String)listP.getValueAt(listP.getSelectedRow(), 0);
+        if(s != null){
+            sel = findProduto(s);
+            int click = evt.getClickCount();
+            if(click == 2){
+                removeProduto(sel.getNome());
+                sel = null;
+                return;
+            }
+            if(click == 1){
+                qtdP.setValue((Integer)sel.getQuantidade());
+            }
+        }
+    }//GEN-LAST:event_listPMouseClicked
+
+    private void qtdPStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_qtdPStateChanged
+        if(sel != null){
+            sel.setQuantidade(((Integer)qtdP.getValue()).intValue());
+            calcPreco();
+            precoV.setText(((Double)valTotal).toString());
+            plUpdate();
+        }
+    }//GEN-LAST:event_qtdPStateChanged
+
+    private void listPKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listPKeyPressed
+        int val = listP.getSelectedRow();
+        int kId = evt.getID();
+        String s = "";
+        if(kId == java.awt.event.KeyEvent.VK_DOWN){
+            if(val <= listP.getRowCount()) val += 1;
+        }
+        if(kId == java.awt.event.KeyEvent.VK_UP){
+            if(val > 0) val -= 1;
+        }
+        listP.changeSelection(val, 0, false, false);
+        s = (String)listP.getValueAt(val, 0);
+        sel = findProduto(s);
+        if(sel != null) qtdP.setValue((Integer)sel.getQuantidade());
+    }//GEN-LAST:event_listPKeyPressed
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        if(v != null){
+            Arq.gravarVal(v.geraNota(), v.getCode() + ".txt");
+        }
+        if(e != null){
+            Arq.gravarVal(e.geraNota(), v.getCode() + ".txt");
+        }
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    /**
+    * @param args the command line arguments
+    */
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new MenuVenda().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cadV;
+    private javax.swing.JTextField cod;
+    private javax.swing.JSpinner dataEnt;
+    private java.awt.TextField findTE;
+    private java.awt.TextField findTP;
+    private java.awt.Checkbox isEnc;
+    private java.awt.Checkbox isPago;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTable listE;
+    private javax.swing.JTable listP;
+    private javax.swing.JTextField precoV;
+    private javax.swing.JSpinner qtdP;
+    private javax.swing.JButton remV;
+    // End of variables declaration//GEN-END:variables
+
+    private Erro erro;
+
+    public void showErro(String s){
+        erro = new Erro(s);
+        erro.setLocationRelativeTo(this);
+    }
+}

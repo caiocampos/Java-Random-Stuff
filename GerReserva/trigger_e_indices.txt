@@ -1,0 +1,59 @@
+create index idx_cod_reserva on reserva(cod_reserva);
+create index idx_cod_iata on aeroporto(cod_iata);
+create index idx_origem on trecho(origem);
+create index idx_destino on trecho(destino);
+
+-----------------
+
+                                                                     
+                                                                     
+                                                                     
+                                             
+set search_path = aeroporto;
+
+create or replace function verifica_dia_semana()
+returns trigger as
+$$
+ declare count boolean := false;
+ begin
+  if new.seg then
+   count := true;
+  end if;
+  if new.ter then
+   if count then return null;
+   else count := true;
+   end if;
+  end if;
+  if new.qua then
+   if count then return null;
+   else count := true;
+   end if;
+  end if;
+  if new.qui then
+   if count then return null;
+   else count := true;
+   end if;
+  end if;
+  if new.sex then
+   if count then return null;
+   else count := true;
+   end if;
+  end if;
+  if new.sab then
+   if count then return null;
+   else count := true;
+   end if;
+  end if;
+  if new.dom then
+   if count then return null;
+   else count := true;
+   end if;
+  end if;
+  return new;
+ end;
+$$
+language plpgsql;
+
+create trigger verifica_dia_semana
+before insert or update on aeronave for each row
+execute procedure verifica_dia_semana();

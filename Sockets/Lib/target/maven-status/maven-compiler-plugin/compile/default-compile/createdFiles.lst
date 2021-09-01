@@ -1,0 +1,9 @@
+br/campos/sockets/util/Constants$Frame.class
+br/campos/sockets/util/Constants.class
+br/campos/sockets/protocol/ProtocolEncoder.class
+br/campos/sockets/entity/Test.class
+br/campos/sockets/util/Crc8Calculator.class
+br/campos/sockets/util/HibernateUtil.class
+br/campos/sockets/model/ProtocolData.class
+br/campos/sockets/protocol/ProtocolDecoder.class
+br/campos/sockets/model/Protocol.class

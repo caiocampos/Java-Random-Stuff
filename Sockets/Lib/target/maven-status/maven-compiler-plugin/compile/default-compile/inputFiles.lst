@@ -1,0 +1,8 @@
+/home/caio/eclipse-workspace/Sockets/Lib/src/main/java/br/campos/sockets/model/ProtocolData.java
+/home/caio/eclipse-workspace/Sockets/Lib/src/main/java/br/campos/sockets/util/Constants.java
+/home/caio/eclipse-workspace/Sockets/Lib/src/main/java/br/campos/sockets/util/HibernateUtil.java
+/home/caio/eclipse-workspace/Sockets/Lib/src/main/java/br/campos/sockets/protocol/ProtocolEncoder.java
+/home/caio/eclipse-workspace/Sockets/Lib/src/main/java/br/campos/sockets/model/Protocol.java
+/home/caio/eclipse-workspace/Sockets/Lib/src/main/java/br/campos/sockets/entity/Test.java
+/home/caio/eclipse-workspace/Sockets/Lib/src/main/java/br/campos/sockets/protocol/ProtocolDecoder.java
+/home/caio/eclipse-workspace/Sockets/Lib/src/main/java/br/campos/sockets/util/Crc8Calculator.java
