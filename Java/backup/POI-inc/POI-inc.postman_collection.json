@@ -1,0 +1,366 @@
+{
+	"info": {
+		"_postman_id": "7d64b38f-4646-4004-8687-4bfdf2b7f18d",
+		"name": "POI-inc",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8085/ (criar POI 'Lanchonete')",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b730cdb4-c53c-4656-8c09-dc6c668021f9",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Lanchonete\",\n\t\"x\": 27,\n\t\"y\": 12\n}"
+				},
+				"url": {
+					"raw": "localhost:8085/",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8085/ (criar POI 'Posto')",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b730cdb4-c53c-4656-8c09-dc6c668021f9",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Posto\",\n\t\"x\": 31,\n\t\"y\": 18\n}"
+				},
+				"url": {
+					"raw": "localhost:8085/",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8085/ (criar POI 'Joalheria')",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b730cdb4-c53c-4656-8c09-dc6c668021f9",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Joalheiria\",\n\t\"x\": 15,\n\t\"y\": 21\n}"
+				},
+				"url": {
+					"raw": "localhost:8085/",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8085/ (criar POI 'Floricultura')",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b730cdb4-c53c-4656-8c09-dc6c668021f9",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Floricutura\",\n\t\"x\": 19,\n\t\"y\": 8\n}"
+				},
+				"url": {
+					"raw": "localhost:8085/",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8085/ (criar POI 'Pub')",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b730cdb4-c53c-4656-8c09-dc6c668021f9",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Pub\",\n\t\"x\": 12,\n\t\"y\": 8\n}"
+				},
+				"url": {
+					"raw": "localhost:8085/",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8085/ (criar POI 'Supermercado')",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b730cdb4-c53c-4656-8c09-dc6c668021f9",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Supermercado\",\n\t\"x\": 23,\n\t\"y\": 6\n}"
+				},
+				"url": {
+					"raw": "localhost:8085/",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8085/ (criar POI 'Churrascaria')",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b730cdb4-c53c-4656-8c09-dc6c668021f9",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Churrascaria\",\n\t\"x\": 28,\n\t\"y\": 2\n}"
+				},
+				"url": {
+					"raw": "localhost:8085/",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8085/ (listar POIs próximos)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b730cdb4-c53c-4656-8c09-dc6c668021f9",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"x\": 20,\n\t\"y\": 10,\n\t\"distance\": 10\n}"
+				},
+				"url": {
+					"raw": "localhost:8085/near",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"near"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8085/ (listar POIs)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b730cdb4-c53c-4656-8c09-dc6c668021f9",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8085/",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
